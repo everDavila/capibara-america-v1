@@ -61,11 +61,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Move mario based on his velocity
+        // Mueve a CApibara America en base a su velocidad
         Vector2 position = rb.position;
         position += velocity * Time.fixedDeltaTime;
 
-        // Clamp within the screen bounds
+        //   Restringe dentro de los límites de la pantalla
         Vector2 leftEdge = mainCamera.ScreenToWorldPoint(Vector2.zero);
         Vector2 rightEdge = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         position.x = Mathf.Clamp(position.x, leftEdge.x + 0.5f, rightEdge.x - 0.5f);
@@ -75,16 +75,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void HorizontalMovement()
     {
-        // Accelerate / decelerate
+        // Accela/ decelera 
         inputAxis = Input.GetAxis("Horizontal");
         velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, moveSpeed * Time.deltaTime);
 
-        // Check if running into a wall
+        // Revisa si hay una colision en la direccion del movimiento
         if (rb.Raycast(Vector2.right * velocity.x)) {
             velocity.x = 0f;
         }
 
-        // Flip sprite to face direction
+        // Cambia la direccion del sprite
         if (velocity.x > 0f) {
             transform.eulerAngles = Vector3.zero;
         } else if (velocity.x < 0f) {
@@ -94,11 +94,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void GroundedMovement()
     {
-        // Prevent gravity from infinitly building up
+        // Evita que la gravedad se acumule infinitamente
         velocity.y = Mathf.Max(velocity.y, 0f);
         jumping = velocity.y > 0f;
 
-        // Perform jump
+        // Mejora de salto 
         if (Input.GetButtonDown("Jump"))
         {
             velocity.y = jumpForce;
@@ -108,11 +108,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        // Check if falling
+        // Revisa si cae
         bool falling = velocity.y < 0f || !Input.GetButton("Jump");
         float multiplier = falling ? 2f : 1f;
 
-        // Apply gravity and terminal velocity
+        // Aplica la gravedad y la velocidad terminal
         velocity.y += gravity * multiplier * Time.deltaTime;
         velocity.y = Mathf.Max(velocity.y, gravity / 2f);
     }
@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            // Bounce off enemy head
+            // Choquea al enemigo
             if (transform.DotTest(collision.transform, Vector2.down))
             {
                 velocity.y = jumpForce / 2f;
@@ -130,7 +130,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (collision.gameObject.layer != LayerMask.NameToLayer("PowerUp"))
         {
-            // Stop vertical movement if mario bonks his head
+            //  Detiene el movimiento vertical si CApibara se golpea la cabeza
+
             if (transform.DotTest(collision.transform, Vector2.up)) {
                 velocity.y = 0f;
             }
