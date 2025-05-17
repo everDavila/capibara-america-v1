@@ -1,6 +1,6 @@
 # capibara-america-v1
 
-Este proyecto es un videojuego desarrollado en Unity, inspirado en plataformas clásicas. El objetivo es controlar a un personaje principal a través de diferentes niveles, recolectando objetos y evitando obstáculos.
+Este proyecto es un videojuego desarrollado en Unity, para el curso Desarrollo de Video Juefos. El juego esta inspirado en plataformas clásicas. El objetivo es controlar a un personaje principal a través de diferentes niveles, recolectando objetos y evitando obstáculos.
 
 ## Estructura del proyecto
 
